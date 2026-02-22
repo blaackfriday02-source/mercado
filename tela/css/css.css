@@ -1,0 +1,23 @@
+@font-face{
+	font-family: proximanovalight;
+	src: url("../../api/fontes/proximanova-light.woff2");
+}
+@font-face{
+	font-family: proximanovaregular;
+	src: url("../../api/fontes/proximanova-regular.woff2");
+}
+@font-face{
+	font-family: proximanovasemibold;
+	src: url("../../api/fontes/proximanova-semibold.woff2");
+}
+@font-face{
+	font-family: icones;
+	src: url("../../api/fontes/navigation.woff2");
+}
+
+/* Padronização global da descrição (igual ao produto capacete) */
+#descrição-do-produto, #descrição-do-produto *{
+  color: rgba(0,0,0,.45) !important;
+  font-size: 15px;
+  line-height: 1.65;
+}

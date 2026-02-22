@@ -1,0 +1,10 @@
+COLOQUE O CERTIFICADO EFIBANK AQUI COM O NOME: efibank.pem
+
+Como baixar:
+1. Acesse app.sejaefi.com.br
+2. Va em: API > Meus Certificados
+3. Clique em "Novo Certificado" (se nao tiver)
+4. Baixe o arquivo .p12
+5. Converta para .pem com o comando:
+   openssl pkcs12 -in certificado.p12 -out efibank.pem -nodes
+6. Envie o efibank.pem para esta pasta via Gerenciador de Arquivos da Hostinger

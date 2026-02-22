@@ -1,0 +1,67 @@
+
+<style>
+/* Footer (igual ao print, full width) */
+.site-footer{
+  width:100%;
+  background:#ffffff;
+  color:#666666;
+  font-family:proximanovaregular, Arial, sans-serif;
+  font-size:12px;
+  line-height:1.4;
+}
+.site-footer__inner{
+  width:100%;
+  padding:18px 24px;
+  box-sizing:border-box;
+  text-align:center;
+}
+.site-footer__links{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:18px;
+  margin-bottom:10px;
+}
+.site-footer__links a{
+  color:#666666;
+  text-decoration:none;
+}
+.site-footer__links a:hover{
+  text-decoration:underline;
+}
+.site-footer__copy{
+  margin-bottom:6px;
+}
+.site-footer--fixed{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:999;
+}
+body {
+  padding-bottom:180px; /* evita o rodapé por cima do conteúdo */
+}
+@media (max-width:480px){
+  body { padding-bottom:220px; }
+  .site-footer__inner{ padding:16px 14px; }
+  .site-footer__links{ gap:12px; }
+}
+</style>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__links">
+      <a href="#" rel="nofollow">Trabalhe conosco</a>
+      <a href="#" rel="nofollow">Termos e condições</a>
+      <a href="#" rel="nofollow">Promoções</a>
+      <a href="#" rel="nofollow">Como cuidamos da sua privacidade</a>
+      <a href="#" rel="nofollow">Acessibilidade</a>
+      <a href="#" rel="nofollow">Contato</a>
+      <a href="#" rel="nofollow">Informações sobre seguros</a>
+      <a href="#" rel="nofollow">Programa de Afiliados</a>
+    </div>
+    <div class="site-footer__copy">Copyright © 1999-2026 Ebazar.com.br LTDA.</div>
+    <div class="site-footer__cnpj">CNPJ n.º 03.007.331/0001-41 / Av. das Nações Unidas, nº 3.003, Bonfim, Osasco/SP - CEP 06233-903 - empresa do grupo Mercado Livre Brasil.</div>
+  </div>
+</footer>

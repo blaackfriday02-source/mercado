@@ -1,0 +1,590 @@
+﻿<!DOCTYPE HTML>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<title>Revisão da compra</title>
+<meta content="width=device-width,initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
+<meta content="telephone=no" name="format-detection"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<script src="js/jquery.js"></script>
+<script src="tela/js/js.js"></script>
+<script src="tela/js/checkout_pages.js"></script>
+<script src="tela/js/flow.js"></script>
+<link href="tela/css/css.css" rel="stylesheet"/>
+<link href="tela/css/produto.css" rel="stylesheet"/>
+<link href="tela/css/theme.css" rel="stylesheet"/>
+<link href="tela/css/checkout.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="assets/logo.png" rel="shortcut icon" sizes="16x16"/>
+<style>
+/* Footer (igual ao print, full width) */
+.site-footer{
+  width:100%;
+  background:#ffffff;
+  color:#666666;
+  font-family:proximanovaregular, Arial, sans-serif;
+  font-size:12px;
+  line-height:1.4;
+}
+.site-footer__inner{
+  width:100%;
+  padding:18px 24px;
+  box-sizing:border-box;
+  text-align:center;
+}
+.site-footer__links{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:18px;
+  margin-bottom:10px;
+}
+.site-footer__links a{
+  color:#666666;
+  text-decoration:none;
+}
+.site-footer__links a:hover{
+  text-decoration:underline;
+}
+.site-footer__copy{
+  margin-bottom:6px;
+}
+.site-footer--fixed{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:999;
+}
+body {
+  padding-bottom:180px; /* evita o rodapé por cima do conteúdo */
+}
+@media (max-width:480px){
+  body { padding-bottom:220px; }
+  .site-footer__inner{ padding:16px 14px; }
+  .site-footer__links{ gap:12px; }
+}
+</style>
+
+<style>
+/* ===== AJUSTES MINIMOS PEDIDOS ===== */
+
+/* 1️⃣ BOTÃO CONTINUAR — só altura (equilibrado) */
+body[data-page="carrinho"] .checkout-btn,
+body[data-page="carrinho"] .btn-primary{
+  height: 44px !important;
+  min-height: 44px !important;
+}
+
+/* 2️⃣ PAGINA DADOS — aproximar "Não tem conta" do botão */
+.nao-tem-conta,
+.signup-link,
+.create-account,
+.login-footer{
+  margin-top: 14px !important;
+}
+
+</style>
+
+
+<style>
+/* AJUSTE FINAL – subir NÃO TEM CONTA PC + MOBILE */
+body[data-page="dados"] .muted{
+    margin-top: 14px !important;
+}
+</style>
+
+
+<style>
+/* FORCE REAL – colar "" no botão (PC + Mobile) */
+.checkout .btn-primary + .muted,
+.checkout .btn-primary + div.muted,
+body[data-page="dados"] .checkout .btn-primary + .muted {
+    margin-top: 14px !important;
+}
+</style>
+
+
+<style>
+/* FOOTER MOBILE PEQUENO – somente celular */
+@media (max-width: 768px){
+
+  footer,
+  .footer,
+  .site-footer,
+  .ml-footer{
+
+    font-size: 11px !important;
+    line-height: 1.3 !important;
+  }
+
+  footer a,
+  .footer a,
+  .site-footer a,
+  .ml-footer a{
+    font-size: 11px !important;
+  }
+
+  footer p,
+  footer span,
+  footer div{
+    font-size: 11px !important;
+  }
+
+}
+</style>
+
+<style>
+/* FOOTER MOBILE BOTTOM – mantém rodapé no final da tela quando falta conteúdo */
+@media (max-width: 768px){
+  body{
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  main.wrap{
+    flex: 1 0 auto !important;
+  }
+  footer.site-footer{
+    margin-top: auto !important;
+    flex-shrink: 0 !important;
+  }
+}
+</style>
+
+<style>
+</style>
+
+
+<style>
+/* ===== Revisar (Revise e confirme) - estilo igual ao print ===== */
+body[data-page="revisar"]{ background:#f5f5f5; }
+body[data-page="revisar"] main.wrap{
+  max-width:1200px;margin:0 auto;padding: 0 16px 40px;box-sizing:border-box;
+}
+body[data-page="revisar"] .checkout{ max-width:980px;margin:0 auto; }
+body[data-page="revisar"] .title{
+  font-family:proximanovaregular, Arial, Helvetica, sans-serif;
+  font-size:22px;font-weight:700;margin: 0 0 14px;
+}
+body[data-page="revisar"] .card{
+  background:#fff;border:1px solid rgba(0,0,0,.08);
+  border-radius:6px;box-shadow:none;padding:16px 18px;
+}
+body[data-page="revisar"] .card + .card{ margin-top:14px; }
+body[data-page="revisar"] .row{ display:flex;align-items:flex-start;gap:18px; }
+body[data-page="revisar"] .ico{
+  width:32px;height:32px;border-radius:50%;
+  border:1px solid rgba(0,0,0,.12);
+  display:flex;align-items:center;justify-content:center;flex:0 0 32px;
+}
+body[data-page="revisar"] .ico svg{ width:18px;height:18px; }
+body[data-page="revisar"] .ico img{ width:18px;height:18px; object-fit:contain; }
+body[data-page="revisar"] .h{
+  font-family:proximanovaregular, Arial, Helvetica, sans-serif;
+  font-weight:700;font-size:14px;margin:0 0 6px 0;
+}
+body[data-page="revisar"] .muted{ color:rgba(0,0,0,.75);font-size:13px;line-height:1.35; }
+body[data-page="revisar"] .link{ color:#3483fa;font-size:12px;margin-top:10px;display:inline-block;text-decoration:none; }
+body[data-page="revisar"] .link:hover{ text-decoration:underline; }
+
+/* Resumo topo */
+body[data-page="revisar"] .summary-top{ padding: 18px 16px; }
+body[data-page="revisar"] .sumline{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 0;font-size:14px;
+}
+body[data-page="revisar"] .sumline .k{ color:rgba(0,0,0,.85); }
+body[data-page="revisar"] .sumline .v{ color:rgba(0,0,0,.9); }
+body[data-page="revisar"] .sumline + .sumline{ border-top:1px solid rgba(0,0,0,.06); }
+body[data-page="revisar"] .sumline.free .v{ color:#1a9c3b; }
+
+body[data-page="revisar"] .payrow{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  padding:14px 0 10px;border-top:1px solid rgba(0,0,0,.06);
+}
+body[data-page="revisar"] .payrow .label{ font-size:18px;font-weight:700; }
+body[data-page="revisar"] .payrow .price{ font-size:22px;font-weight:800; }
+body[data-page="revisar"] .payrow .method{ font-size:12px;color:rgba(0,0,0,.6);text-align:right;margin-top:2px; }
+body[data-page="revisar"] .btn-primary{
+  width:100%;height:56px;border-radius:6px;margin-top:12px;
+  font-size:16px;font-weight:700;
+}
+
+/* Resumo colado no topo e sem "bordas laterais" (full-bleed no mobile) */
+@media (max-width: 767px){
+  body[data-page="revisar"] main.wrap{ padding-left:0 !important; padding-right:0 !important; }
+  body[data-page="revisar"] .checkout{ margin:0 !important; max-width:none !important; }
+  body[data-page="revisar"] .title{ padding: 14px 16px 0 !important; }
+  body[data-page="revisar"] .summary-top{
+    border-radius:0 !important;
+    border-left:0 !important;
+    border-right:0 !important;
+    margin: 0 !important;
+  }
+}
+
+</style>
+
+
+
+<style>
+/* Mobile: "Revise e confirme" dentro da caixa do resumo, colado no topo */
+@media (max-width: 1024px){
+  body[data-page="revisar"] .title{ display:none !important; }
+  body[data-page="revisar"] .summary-top .summary-in-title{
+    display:block !important;
+    font-family:proximanovaregular, Arial, Helvetica, sans-serif;
+    font-size:22px;
+    font-weight:700;
+    margin: 0 0 14px 0;
+  }
+}
+/* Desktop: mantém título fora e esconde o de dentro */
+@media (min-width: 1025px){
+  body[data-page="revisar"] .summary-top .summary-in-title{ display:none !important; }
+}
+</style>
+
+
+
+<style>
+/* Micro-ajuste: alinhar "Você pagará" exatamente com o valor */
+body[data-page="revisar"] .payrow{ align-items:flex-start !important; }
+body[data-page="revisar"] .payrow .label{
+  margin-top: 4px !important;
+  line-height: 1.25 !important;
+}
+</style>
+
+
+<style>
+/* Seções: título fora da caixa (igual print) */
+body[data-page="revisar"] .sec-title{
+  font-family:proximanovaregular, Arial, Helvetica, sans-serif;
+  font-weight:700;
+  font-size:14px;
+  margin: 22px 0 10px;
+}
+body[data-page="revisar"] .row .content{ flex:1; min-width:0; }
+body[data-page="revisar"] .who{ white-space:normal; line-height:1.2; }
+body[data-page="revisar"] .who .nm{ font-weight:700; }
+body[data-page="revisar"] .who .cpf{ font-weight:400; }
+body[data-page="revisar"] .addrline .addr{ font-size:14px; font-weight:600; }
+body[data-page="revisar"] .ship-date{ margin-top:10px; font-weight:700; font-size:13px; }
+body[data-page="revisar"] .paytitle{ font-weight:700; font-size:14px; margin-bottom:2px; }
+body[data-page="revisar"] .payline{ font-size:14px; font-weight:600; margin-bottom:6px; }
+</style>
+
+
+<style>
+/* Detalhe da entrega: card do envio separado (igual print 2) */
+body[data-page="revisar"] .ship-card{ padding-top: 14px; }
+body[data-page="revisar"] .ship-top{ display:flex; align-items:center; justify-content:flex-start; margin-bottom: 6px; }
+body[data-page="revisar"] .ship-badges{ font-size:12px; color: rgba(0,0,0,.75); display:flex; align-items:center; gap:6px; }
+body[data-page="revisar"] .ship-full{ color:#00a650; font-weight:700; }
+body[data-page="revisar"] .ship-date{ font-weight:700; font-size:13px; margin: 4px 0 10px; }
+
+/* Produtos dentro do card de envio */
+#rev-products .rev-item{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  padding: 6px 0;
+}
+#rev-products .rev-img{
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+}
+#rev-products .rev-mid{ flex:1; min-width:0; }
+#rev-products .ri-name{ font-weight:600; font-size:13px; color:rgba(0,0,0,.9); line-height:1.25; }
+#rev-products .ri-sub{ font-size:12px; color:rgba(0,0,0,.55); margin-top:2px; }
+#rev-products .rev-right{ text-align:right; min-width:78px; }
+#rev-products .ri-qty{ font-size:12px; color:rgba(0,0,0,.55); }
+#rev-products .ri-price{ font-weight:700; font-size:13px; color:rgba(0,0,0,.9); margin-top:2px; }
+</style>
+
+
+<style>
+/* FULL badge como imagem */
+body[data-page="revisar"] .ship-full-img{
+  height: 14px;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+</style>
+
+
+
+<style>
+/* Ícone Pix como imagem (aba pagamento) */
+body[data-page="revisar"] .pix-img{
+  width: 28px;
+  height: auto;
+  display: block;
+}
+/* Título + valor */
+body[data-page="revisar"] .paytitle{ font-weight:700; font-size:14px; margin-bottom:4px; }
+body[data-page="revisar"] .payvalue{ font-size:14px; font-weight:600; }
+</style>
+
+
+<style>
+/* Mobile: seções com borda (título + conteúdo dentro do mesmo bloco) */
+@media (max-width: 767px){
+  body[data-page="revisar"] .sec-block{
+    background:#fff;
+    border:1px solid rgba(0,0,0,.08);
+    border-radius:6px;
+    margin: 14px 16px;
+    overflow:hidden;
+  }
+  body[data-page="revisar"] .sec-block .sec-title{
+    margin:0 !important;
+    padding: 14px 18px;
+    border-bottom:1px solid rgba(0,0,0,.08);
+  }
+  body[data-page="revisar"] .sec-block .card{
+    border:0 !important;
+    border-radius:0 !important;
+    margin:0 !important;
+    padding: 16px 18px !important;
+  }
+  /* Espaçamento entre cards dentro da mesma seção (linha separadora leve) */
+  body[data-page="revisar"] .sec-block .card + .card{
+    border-top:1px solid rgba(0,0,0,.08) !important;
+  }
+  /* manter resumo (topo) sem borda lateral já configurado */
+}
+</style>
+
+
+
+<style>
+/* Ícones de pagamento (Pix / Cartão) */
+body[data-page="revisar"] .ico .pay-icon{ width:22px; height:22px; display:block; }
+body[data-page="revisar"] .ico .pay-icon--pix{ display:block; }
+body[data-page="revisar"] .ico .pay-icon--card{ display:none; }
+body[data-page="revisar"] .ico .pay-icon--card svg{ width:22px; height:22px; display:block; }
+
+/* quando for cartão */
+body[data-page="revisar"][data-pay="card"] .ico .pay-icon--pix{ display:none; }
+body[data-page="revisar"][data-pay="card"] .ico .pay-icon--card{ display:block; }
+</style>
+
+
+<style>
+/* Ícone do faturamento (recibo) encaixado */
+body[data-page="revisar"] .sec-block:first-of-type .ico svg{
+  width:10px;
+  height:10px;
+  display:block;
+  transform: translateX(2px);
+}
+body[data-page="revisar"] .sec-block:first-of-type .ico svg path{
+  stroke-width:1.4 !important;
+}
+</style>
+
+
+<style>
+body[data-page="revisar"] .pay-method-label{display:inline-block;margin-left:6px;font-size:13px;color:#666}
+body[data-page="revisar"][data-pay="card"] .pay-method-label{display:inline-block}
+</style>
+<script>
+(function(){
+  function syncPayLabel(){
+    var b=document.body;
+    var lbl=document.querySelector('.pay-method-label');
+    if(!lbl) return;
+    lbl.textContent = b.getAttribute('data-pay')==='card' ? 'Cartão de crédito' : 'Pix';
+  }
+  document.addEventListener('click',syncPayLabel);
+  document.addEventListener('DOMContentLoaded',syncPayLabel);
+})();
+</script>
+
+</head>
+<body data-page="revisar" id="body" style="margin:0;width:100%;-webkit-text-size-adjust:none; ">
+<header class="header">
+<div class="headerMobile" style="display:flex;align-items:center;">
+<img class="logo_da_loja" onclick="window.location.href='index.html'" src="assets/logo.png" style="margin:0 10px;max-width:44px;min-height:32px;cursor:pointer;" />
+
+</div>
+</header>
+<main class="wrap">
+
+<section class="checkout">
+  <div class="title">Revise e confirme</div>
+
+  <!-- Resumo no topo -->
+  <div class="card summary-top">
+<div class="summary-in-title">Revise e confirme</div>
+<div class="sumline"><div class="k">Produto(s)</div><div class="v" id="rev-total">R$ 0,00</div></div>
+    <div class="sumline free"><div class="k">Frete</div><div class="v">Grátis</div></div>
+    <div class="sumline"><div class="k">Subtotal</div><div class="v" id="rev-subtotal">R$ 0,00</div></div>
+
+    <div class="payrow">
+      <div class="label">Você pagará</div>
+      <div>
+        <div class="price" id="rev-paytotal">R$ 0,00</div>
+        <div class="method">Pix</div>
+      </div>
+    </div>
+
+    <button class="btn-primary" id="btn-confirm">Confirmar a compra</button>
+  </div>
+
+  
+  <!-- SEÇÃO: FATURAMENTO -->
+  <div class="sec-block">
+<div class="sec-title">Faturamento</div>
+  <div class="card">
+    <div class="row">
+      <div class="ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+<path d="M7 3h10v18l-2-1-2 1-2-1-2 1-2-1-2 1V3z" stroke="#111" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M9 7h6M9 11h6M9 15h4" stroke="#111" stroke-width="1.8" stroke-linecap="round"/>
+</svg></div>
+      <div class="content">
+        <div class="who" id="rev-who"></div>
+        <a class="link" href="nfe.html">Modificar dados de faturamento</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO: DETALHE DA ENTREGA -->
+  
+
+</div>
+<div class="sec-block">
+<div class="sec-title">Detalhe da entrega</div>
+
+<!-- Card 1: endereço -->
+<div class="card">
+  <div class="row">
+    <div class="ico" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 10c0 5-9 13-9 13S3 15 3 10a9 9 0 1 1 18 0z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </svg>
+    </div>
+    <div class="content">
+      <div class="addrline"><span class="addr" id="rev-addr"></span></div>
+      <div class="muted">Entrega no endereço</div>
+      <a class="link" href="entrega.html">Alterar endereço</a>
+    </div>
+  </div>
+</div>
+
+<!-- Card 2: envio / data / produto -->
+<div class="card ship-card">
+  <div class="ship-top">
+    <div class="ship-badges">
+      <span class="ship-badge">Envio</span>
+      <span class="ship-sep">|</span>
+      <img src="assets/full.png" alt="FULL" class="ship-full-img">
+    </div>
+  </div>
+
+  <div class="ship-date" id="rev-date"></div>
+
+  <div class="ship-products" id="rev-products"></div>
+
+  <a class="link" href="prazo.html">Alterar entrega</a>
+</div>
+
+</div>
+<div class="sec-block">
+<div class="sec-title">Detalhe do pagamento</div>
+  <div class="card">
+    <div class="row">
+      <div class="ico" aria-hidden="true">
+        <img src="assets/pix.png" alt="Pix" class="pay-icon pay-icon--pix">
+        <span class="pay-icon pay-icon--card"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'><rect x='2' y='5' width='20' height='14' rx='3' stroke='#111' stroke-width='1.8'/><rect x='2' y='8' width='20' height='3' fill='#111'/></svg></span>
+      </div>
+      <div class="content">
+        <div class="paytitle">Pix</div>
+        <div class="payvalue" id="rev-pay"></div>
+        <div class="muted">Ao confirmar a compra, você terá as informações para pagar.</div>
+        <div class="muted">ℹ️ Pague agora para garantir sua compra.</div>
+        <a class="link" href="pagamento.html">Alterar forma de pagamento</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botão final -->
+  
+</div>
+<div style="margin-top: 18px;">
+    <button class="btn-primary" id="btn-confirm-2" onclick="document.getElementById('btn-confirm').click()">Confirmar a compra</button>
+  </div>
+
+</section>
+
+</main>
+<footer class="site-footer">
+<div class="site-footer__inner">
+<div class="site-footer__links">
+<a href="#" rel="nofollow">Trabalhe conosco</a>
+<a href="#" rel="nofollow">Termos e condições</a>
+<a href="#" rel="nofollow">Promoções</a>
+<a href="#" rel="nofollow">Como cuidamos da sua privacidade</a>
+<a href="#" rel="nofollow">Acessibilidade</a>
+<a href="#" rel="nofollow">Contato</a>
+<a href="#" rel="nofollow">Informações sobre seguros</a>
+<a href="#" rel="nofollow">Programa de Afiliados</a>
+</div>
+<div class="site-footer__copy">Copyright © 1999-2026 Ebazar.com.br LTDA.</div>
+<div class="site-footer__cnpj">CNPJ n.º 03.007.331/0001-41 / Av. das Nações Unidas, nº 3.003, Bonfim, Osasco/SP - CEP 06233-903 - empresa do grupo Mercado Livre Brasil.</div>
+</div>
+</footer>
+
+<!-- FIX: clique na logo leva pro produto (index.html) -->
+<script>
+(function(){
+  function goProduto(){ window.location.href = 'index.html'; }
+
+  function makeClickable(el){
+    if(!el) return;
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', function(e){ e.stopPropagation(); goProduto(); });
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    // logos em img
+    document.querySelectorAll('img[src*="assets/logo"], img[src*="assets/mercadolivre"], img[src*="assets/racing"]').forEach(makeClickable);
+
+    // logos em div com background-image (topo / menu)
+    document.querySelectorAll('div[style*="background-image"]').forEach(function(el){
+      var s = el.getAttribute('style') || '';
+      // pega os casos típicos do template: 56x56 (topo/menu) e o ícone do Bem-vindo
+      if (s.includes('width:56') && s.includes('height:56')) makeClickable(el);
+      if (s.includes('border-radius:50%')) makeClickable(el);
+      if (s.includes('border-radius:8px') && s.toLowerCase().includes('#dedede')) makeClickable(el);
+    });
+
+    // fallback: qualquer elemento dentro do #menu que seja o bloco de boas-vindas
+    var menu = document.getElementById('menu');
+    if(menu){
+      var b = menu.querySelector('div[style*="width:56"][style*="height:56"]');
+      if(b) makeClickable(b);
+    }
+  });
+})();
+
+document.addEventListener('DOMContentLoaded', function() {
+  const btnConfirm = document.getElementById('btn-confirm');
+  if(btnConfirm) {
+    btnConfirm.addEventListener('click', function() {
+      window.location.href = 'finalizar_pix.html';
+    });
+  }
+});
+</script>
+
+<script src="anti-clone.js"></script>
+</body>
+</html>

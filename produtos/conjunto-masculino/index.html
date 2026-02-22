@@ -1,0 +1,712 @@
+<!DOCTYPE HTML>
+
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<link rel="icon" type="image/png" href="../../assets/logo.png"/>
+<link rel="apple-touch-icon" href="../../assets/logo.png"/>
+<title>Mercado Livre Brasil</title>
+<meta content="width=device-width,initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
+<meta content="telephone=no" name="format-detection"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<!-- Libs -->
+<script src="../../js/jquery.js"></script>
+<script src="../../js/js.js"></script>
+<script src="../../js/catalogo.js"></script>
+<script src="../../js/owl.carousel.js"></script>
+<link href="../../css/owl.carousel.css" rel="stylesheet"/>
+<link href="../../css/owl.theme.default.css" rel="stylesheet"/>
+<!-- Tema (copiado do modelo) -->
+<link href="../../tela/css/css.css" rel="stylesheet"/>
+<link href="../../tela/css/produto.css" rel="stylesheet"/>
+<link href="../../tela/css/theme.css" rel="stylesheet"/>
+<script src="../../tela/js/js.js"></script>
+<script src="../../tela/js/produto.js"></script>
+<!-- Ícones -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<link href="../../assets/favicon.png" id="favicon_do_site" rel="shortcut icon" sizes="16x16"/>
+<!-- PERFORMANCE: prioriza a img1 (principal) e deixa as outras pra depois -->
+<link as="image" fetchpriority="high" href="assets/img1.webp" rel="preload"/>
+<link as="image" href="assets/img2.webp" rel="prefetch"/>
+<link as="image" href="assets/img3.webp" rel="prefetch"/>
+<style>
+/* Footer (igual ao print, full width) */
+.site-footer{
+  width:100%;
+  background:#ffffff;
+  color:#666666;
+  font-family:proximanovaregular, Arial, sans-serif;
+  font-size:12px;
+  line-height:1.4;
+}
+.site-footer__inner{
+  width:100%;
+  padding:18px 24px;
+  box-sizing:border-box;
+  text-align:center;
+}
+.site-footer__links{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:18px;
+  margin-bottom:10px;
+}
+.site-footer__links a{
+  color:#666666;
+  text-decoration:none;
+}
+.site-footer__links a:hover{
+  text-decoration:underline;
+}
+.site-footer__copy{
+  margin-bottom:6px;
+}
+.site-footer--fixed{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:999;
+}
+body {
+  padding-bottom:180px; /* evita o rodapé por cima do conteúdo */
+}
+@media (max-width:480px){
+  body { padding-bottom:220px; }
+  .site-footer__inner{ padding:16px 14px; }
+  .site-footer__links{ gap:12px; }
+}
+</style>
+
+<style>
+/* ===== AJUSTES MINIMOS PEDIDOS ===== */
+
+/* 1️⃣ BOTÃO CONTINUAR — só altura (equilibrado) */
+body[data-page="carrinho"] .checkout-btn,
+body[data-page="carrinho"] .btn-primary{
+  height: 44px !important;
+  min-height: 44px !important;
+}
+
+/* 2️⃣ PAGINA DADOS — aproximar "Não tem conta" do botão */
+.nao-tem-conta,
+.signup-link,
+.create-account,
+.login-footer{
+  margin-top: 14px !important;
+}
+
+</style>
+
+
+<style>
+/* AJUSTE FINAL – subir NÃO TEM CONTA PC + MOBILE */
+body[data-page="dados"] .muted{
+    margin-top: 14px !important;
+}
+</style>
+
+
+<style>
+/* FORCE REAL – colar "" no botão (PC + Mobile) */
+.checkout .btn-primary + .muted,
+.checkout .btn-primary + div.muted,
+body[data-page="dados"] .checkout .btn-primary + .muted {
+    margin-top: 14px !important;
+}
+</style>
+
+
+<style>
+/* FOOTER MOBILE PEQUENO – somente celular */
+@media (max-width: 768px){
+
+  footer,
+  .footer,
+  .site-footer,
+  .ml-footer{
+
+    font-size: 11px !important;
+    line-height: 1.3 !important;
+  }
+
+  footer a,
+  .footer a,
+  .site-footer a,
+  .ml-footer a{
+    font-size: 11px !important;
+  }
+
+  footer p,
+  footer span,
+  footer div{
+    font-size: 11px !important;
+  }
+
+}
+</style>
+
+<style>
+/* FOOTER MOBILE BOTTOM – mantém rodapé no final da tela quando falta conteúdo */
+@media (max-width: 768px){
+  body{
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  main.wrap{
+    flex: 1 0 auto !important;
+  }
+  footer.site-footer{
+    margin-top: auto !important;
+    flex-shrink: 0 !important;
+  }
+}
+</style>
+
+<style>
+/* Ajuste fino: reduzir 'Enviar para' e seta */
+.header .enviar-para,
+.header .enviar-para span{
+  font-size: 13px !important;
+}
+.header .enviar-para svg,
+.header .enviar-para .arrow{
+  transform: scale(0.85);
+}
+</style>
+
+
+<style>
+/* REDUÇÃO REAL do 'Enviar para' e seta (mais agressivo) */
+.header [class*="enviar"],
+.header [class*="enviar"] span{
+  font-size: 11px !important;
+  line-height: 1.1 !important;
+}
+.header [class*="enviar"] svg,
+.header [class*="enviar"] .arrow,
+.header [class*="enviar"] i{
+  transform: scale(0.7) !important;
+}
+</style>
+
+
+
+
+
+
+
+
+<style>
+/* Enviar para (ship-to): ajuste final, um pouco maior */
+.ml-shipto span{ font-size: 14.5px !important; line-height: 1.25 !important; }
+.ml-shipto .material-icons{ font-size: 20px !important; vertical-align: middle; }
+.ml-shipto svg{ width: 18px !important; height: 22px !important; margin-right: 6px !important; }
+</style>
+
+</head>
+<body data-page="index" id="body" style="margin:0;width:100%;-webkit-text-size-adjust:none;">
+<span id="local" style="display:none;">produto</span>
+<!-- alerta -->
+<div id="perguntaFeita" onclick="fecharPerguntaFeita();" style="width:100vw;padding:15px 20px;background-color:rgb(57, 181, 74);position:fixed;bottom:0;z-index:100;display:none;">
+<span style="font-family:proximanovaregular;font-size:14px;color:#ffffff;">Enviado com sucesso.</span>
+</div>
+<!-- quantidade -->
+<div id="modalQuantidade" style="position:fixed;z-index:100;display:none;flex-flow:column;">
+<div onclick='modal("modalQuantidade");' style="flex-grow:1;flex-basis:auto;"></div>
+<div style="width:100%;height:max-content;max-height:70vh;">
+<div style="margin:0 24px 10px;flex-grow:1;height:max-content;display:flex;align-items:center;">
+<i class="material-icons" onclick='modal("modalQuantidade");' style="margin:0 0 0 auto;font-size:22px;color:#ffffff;width:max-content;height:max-content;"></i>
+</div>
+<div class="boxShadow" style="flex-grow:1;padding:15px;display:flex;flex-flow:column;max-height:calc(70vh - 40px);background-color:#ffffff;border-radius:8px 8px 0 0;">
+<span style="display:block;font-family:proximanovaregular;font-size:18px;font-weight:600;color:rgba(0,0,0,.9);">Escolha a quantidade</span>
+</div>
+<div style="width:100%;height:1px;background-color:#d8d8d8;"></div>
+<div class="listaDeQuantidades" id="modal-quantidade" style="flex-grow:1;display:flex;flex-flow:column;max-height:calc(70vh - 40px);background-color:#ffffff;overflow-y:auto;"></div>
+<div class="quantidadeManual" style="flex-grow:1;height:max-content;display:none;flex-flow:column;background-color:#ffffff;">
+<span id="modal-quantidade-disponivel" style="display:block;margin:5px 15px;font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.9);"></span>
+<input id="quantidade_personalizada" placeholder="Informar quantidade" style="margin:0 15px;display:block;flex-grow:1;height:48px;padding:0 10px;border:solid 1px rgba(0,0,0,.25);border-radius:5px;outline:0;font-family:proximanovaregular;font-size:16px;color:rgba(0,0,0,.9);" type="number"/>
+<div onclick='escolher_quantidade("manual");' style="margin:15px;flex-grow:1;height:48px;background-color:#3483fa;border-radius:6px;display:flex;align-items:center;-webkit-tap-highlight-color:transparent;">
+<span style="margin:0 auto;font-family:proximanovaregular;font-weight:600;font-size:16px;color:#ffffff;">Aplicar</span>
+</div>
+</div>
+<div style="width:100%;height:10px;background-color:#ffffff;"></div>
+</div>
+</div>
+<!-- detalhes do vendedor -->
+<div id="modalVendedor" style="position:fixed;background-color:#ffffff;z-index:100;display:none;flex-flow:column;">
+<div style="margin:20px 15px;flex-grow:1;display:flex;align-items:center;max-height:35px;">
+<span style="margin:0 auto 0 0;flex-grow:1;font-family:proximanovaregular;font-weight:400;font-size:20px;color:rgba(0,0,0,.9);">Detalhes da loja</span>
+<i class="material-icons" onclick='modal("modalVendedor");' style="margin:0 0 0 auto;font-size:24px;color:#3483fa;width:max-content;height:max-content;cursor:pointer;"></i>
+</div>
+<div style="width:100%;height:1px;background-color:#d8d8d8;"></div>
+<div style="flex-grow:1;flex-basis:auto;overflow-y:auto;background-color:#eeeeee;text-align:left;display:flex;flex-flow:column;">
+<div style="flex-grow:1;">
+<span class="nome_da_loja" style="margin-left:20px;margin-top:30px;display:block;font-family:proximanovaregular;font-weight:400;font-size:32px;color:#333333;">Mercado Livre</span>
+<span style="margin-left:20px;margin-top:20px;display:block;font-family:proximanovaregular;font-weight:400;font-size:16px;color:#333333;">+10 anos vendendo</span>
+<span id="cidade-da-loja" style="margin-left:20px;margin-top:5px;display:block;font-family:proximanovaregular;font-weight:400;font-size:16px;color:#333333;">Diadema, São Paulo</span>
+<span style="margin-left:20px;margin-top:20px;display:block;font-family:proximanovaregular;font-weight:400;font-size:16px;color:#333333;">+1M vendas nos últimos 365 dias</span>
+<div style="margin:30px 20px;flex-grow:1;display:flex;align-items:center;">
+<div style="margin-right:5px;min-width:calc(20% - 4px);height:8px;background-color:#f0e0df;"></div>
+<div style="margin-right:5px;min-width:calc(20% - 4px);height:8px;background-color:#f1e6d8;"></div>
+<div style="margin-right:5px;min-width:calc(20% - 4px);height:8px;background-color:#f2eec3;"></div>
+<div style="margin-right:5px;min-width:calc(20% - 4px);height:8px;background-color:#e1eec3;"></div>
+<div style="min-width:calc(20% - 4px);height:12px;background-color:#39b54a;"></div>
+</div>
+<div style="padding:25px 20px;flex-grow:1;height:max-content;background-color:#ffffff;border-top:solid 1px #e0e0e0;border-bottom:solid 1px #e0e0e0;display:flex;align-items:center;gap:15px;">
+<div style="width:90px;height:90px;border-radius:12px;background:linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+<img src="../../assets/logo.webp" alt="Logo" class="menu-logo" style="width:70px;height:70px;object-fit:contain;cursor:pointer" onclick="window.location.href=\'index.html\'">
+</div>
+<div style="flex-grow:1;text-align:left;">
+<span style="display:block;font-family:proximanovaregular;font-weight:600;font-size:18px;color:#333;margin-bottom:4px;">Presta um bom atendimento</span>
+<span style="display:block;font-family:proximanovaregular;font-weight:400;font-size:14px;color:#666;">Compradores satisfeitos.</span>
+</div>
+</div>
+<div style="padding:25px 20px;flex-grow:1;height:max-content;background-color:#ffffff;border-top:solid 1px #e0e0e0;border-bottom:solid 1px #e0e0e0;display:flex;align-items:center;gap:15px;">
+<div style="width:90px;height:90px;border-radius:12px;background:linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+<img src="../../assets/entrega.png" style="width:60px;height:60px;object-fit:contain;"/>
+</div>
+<div style="flex-grow:1;text-align:left;">
+<span style="display:block;font-family:proximanovaregular;font-weight:600;font-size:18px;color:#333;margin-bottom:4px;">Entrega dentro do prazo</span>
+<span style="display:block;font-family:proximanovaregular;font-weight:400;font-size:14px;color:#666;">Envios sem atraso.</span>
+</div>
+</div>
+<div class="carrossel" style="margin-top:25px;width:100%;display:none;background-color:#eeeeee;">
+<span style="margin:5px 10px 20px 20px;display:block;font-family:proximanovaregular;font-size:20px;color:rgba(0,0,0,.9);">Mais anúncios</span>
+<div class="carrossel2"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- HEADER -->
+<style>
+  .carrinho:before{ content:''; }
+  .buscar::placeholder{ color:#cacaca; opacity:1; }
+</style>
+<header class="header">
+<div class="headerMobile" style="display:flex;align-items:center;">
+<img class="logo_da_loja" id="logo_da_loja" onclick='ir_para("produto");' src="../../assets/logo.png" style="margin:0 10px;max-width:44px;min-height:32px;background-size:31px;cursor:pointer;" />
+<div style="margin-left:10px;flex-grow:1;height:34px;background-color:#ffffff;border-radius:2px;display:flex;align-items:center;">
+<span style="margin-left:10px;font-family:icones;font-size:14px;color:#cacaca;"></span>
+<input class="buscar" id="buscar" placeholder="Estou buscando..." style="margin:0 5px;height:34px;font-family:proximanovaregular;font-size:14px;flex-grow:1;outline:0;background-color:rgba(0,0,0,0);border:none;"/>
+</div>
+<div id="botaoMenu" onclick="menu()" style="display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;width:24px;height:24px;margin:0 16px;cursor:pointer;">
+<span style="width:18px;height:1px;background-color:#333333;"></span>
+<span style="width:18px;height:0.5px;background-color:#333333;"></span>
+<span style="width:18px;height:1px;background-color:#333333;"></span>
+</div>
+<div onclick='ir_para("carrinho");' style="position:relative;width:25px;height:25px;margin-right:10px;">
+<span class="carrinho" style="font-family:icones;font-size:18px;line-height:25px;;position:relative;top:2px"></span>
+<div id="produtos-no-carrinho" style="position:absolute;background-color:#fff159;text-align:center;display:none;align-items:center;width:14px;height:14px;border-radius:50%;left:7px;top:0px;">
+<span id="quantidade_carrinho" style="margin:0 auto;font-size:12px;font-family:proximanovalight;">0</span>
+</div>
+</div>
+</div>
+<div class="headerDesktop">
+<div id="categorias2" style="display:flex;align-items:center;gap:10px;"></div>
+</div>
+<div class="ml-index-subbar">
+<div class="ml-index-subbar-inner">
+<div class="ml-shipto">
+<span style="display:inline-flex;align-items:center;">
+<svg width="18" height="22" viewBox="0 0 24 32" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;">
+<path d="M21 12c0 7-9 17-9 17S3 19 3 12a9 9 0 1 1 18 0z"></path>
+<circle cx="12" cy="12" r="3.2"></circle>
+</svg>
+<span>Enviar para</span>
+</span>
+<span class="material-icons ml-shipto-ch">chevron_right</span>
+</div>
+<nav aria-label="Categorias" class="ml-cats">
+<span class="ml-cat has-dd">Categorias <span class="material-icons">expand_more</span></span>
+<span class="ml-cat">Ofertas</span>
+<span class="ml-cat">Cupons</span>
+<span class="ml-cat">Moda</span>
+</nav>
+<img alt="meli+" class="ml-meli-banner" src="../../assets/meli.png"/>
+</div>
+</div>
+</header>
+<!-- menu -->
+<section id="menu" style="display:none;flex-flow:column;border-bottom:solid 1px rgba(0,0,0,.1);background-color:#ffffff;">
+<div style="flex-grow:1;padding:15px;display:flex;background-color:#fff159;position:relative;border-top:solid 1px rgba(0,0,0,.12);">
+<div style="position:absolute;top:-6px;right:61px;width:10px;height:10px;background-color:#fff059;border-left:solid 1px rgba(0,0,0,.12);border-top:solid 1px rgba(0,0,0,.12);transform:rotate(45deg);z-index:10;"></div>
+<div style="flex-grow:1;display:flex;align-items:center;">
+<div style="width:56px;height:56px;border-radius:50%;background-color:#ededed;display:flex;align-items:center;">
+<img src="https://imgur.com/JVmTa9J" style="margin:0 auto;min-width:28px;max-width:28px;min-height:35px;max-height:35px;"/>
+</div>
+<div style="margin-left:10px;flex-grow:1;">
+<span style="display:block;font-family:proximanovaregular;font-size:16px;color:rgba(0,0,0,.9);font-weight:600;opacity:.9;">Bem-vindo</span>
+<span style="margin-top:5px;display:block;font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.9);opacity:.65;">Seja bem-vindo à <span class="nome_da_loja">Mercado Livre</span>.</span>
+</div>
+</div>
+</div>
+<div style="flex-grow:1;background-color:#ffffff;">
+<div style="flex-grow:1;background-color:#ffffff;">
+<div onclick='ir_para("inicio");' style="flex-grow:1;padding:20px 24px;display:flex;align-items:center;">
+<div style="display:flex;align-items:center;width:20px;height:20px;position:relative;background-image:url('https://imgur.com/yGS1RQS');background-size:contain;background-repeat:no-repeat;background-position:center;"></div>
+<span style="margin-left:20px;margin-top:3px;font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.8);font-weight:600;">Início</span>
+</div>
+<div style="margin:0;width:100%;height:1px;background-color:rgba(0,0,0,.1);"></div><div style="height:22px;"></div>
+<span style="margin:25px 24px 10px 24px;display:block;font-family:proximanovaregular;font-size:16px;color:rgba(0,0,0,.8);font-weight:600;">Categorias</span>
+<div id="categorias" style="background-color:#ffffff;">
+<div onclick="irParaCategoria('Eletrodomésticos');" style="flex-grow:1;padding:18px 24px;display:flex;align-items:center;">
+  <div style="width:20px;height:20px;"></div>
+  <span style="margin-left:20px;margin-top:3px;font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.8);font-weight:600;">Eletrodomésticos</span>
+</div>
+<div onclick="irParaCategoria('Casa e móveis');" style="flex-grow:1;padding:18px 24px;display:flex;align-items:center;">
+  <div style="width:20px;height:20px;"></div>
+  <span style="margin-left:20px;margin-top:3px;font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.8);font-weight:600;">Casa e móveis</span>
+</div>
+<div onclick="irParaCategoria('Games');" style="flex-grow:1;padding:18px 24px;display:flex;align-items:center;">
+  <div style="width:20px;height:20px;"></div>
+  <span style="margin-left:20px;margin-top:3px;font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.8);font-weight:600;">Games</span>
+</div>
+<div onclick="irParaCategoria('Celulares e Telefones');" style="flex-grow:1;padding:18px 24px;display:flex;align-items:center;">
+  <div style="width:20px;height:20px;"></div>
+  <span style="margin-left:20px;margin-top:3px;font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.8);font-weight:600;">Celulares e Telefones</span>
+</div>
+<div onclick="irParaCategoria('Informática');" style="flex-grow:1;padding:18px 24px;display:flex;align-items:center;">
+  <div style="width:20px;height:20px;"></div>
+  <span style="margin-left:20px;margin-top:3px;font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.8);font-weight:600;">Informática</span>
+</div>
+<div onclick="irParaCategoria('Beleza e Cuidado Pessoal');" style="flex-grow:1;padding:18px 24px;display:flex;align-items:center;">
+  <div style="width:20px;height:20px;"></div>
+  <span style="margin-left:20px;margin-top:3px;font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.8);font-weight:600;">Beleza e Cuidado Pessoal</span>
+</div>
+<div onclick="irParaCategoria('Ferramentas');" style="flex-grow:1;padding:18px 24px;display:flex;align-items:center;">
+  <div style="width:20px;height:20px;"></div>
+  <span style="margin-left:20px;margin-top:3px;font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.8);font-weight:600;">Ferramentas</span>
+</div>
+<div onclick="irParaCategoria('Saúde');" style="flex-grow:1;padding:18px 24px;display:flex;align-items:center;">
+  <div style="width:20px;height:20px;"></div>
+  <span style="margin-left:20px;margin-top:3px;font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.8);font-weight:600;">Saúde</span>
+</div>
+<div onclick="irParaCategoria('Esporte e Fitness');" style="flex-grow:1;padding:18px 24px;display:flex;align-items:center;">
+  <div style="width:20px;height:20px;"></div>
+  <span style="margin-left:20px;margin-top:3px;font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.8);font-weight:600;">Esporte e Fitness</span>
+</div>
+<div onclick="irParaCategoria('Acessórios para veículos');" style="flex-grow:1;padding:18px 24px;display:flex;align-items:center;">
+  <div style="width:20px;height:20px;"></div>
+  <span style="margin-left:20px;margin-top:3px;font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.8);font-weight:600;">Acessórios para veículos</span>
+</div>
+</div>
+</div>
+</section>
+<main style="background-color:#ffffff;">
+<div class="ml-product-status-row" style="flex-grow:1;display:flex;align-items:center;">
+<span id="status-do-produto" style="font-family:proximanovaregular;font-size:12px;color:#0000008C;">Novo | +5mil vendidos</span>
+<span style="margin:0 0 0 auto;font-family:proximanovaregular;font-size:12px;color:#0000008C;">
+<span id="nota-do-produto">4.8</span> <span style="color:#3483fa;">★★★★★</span>
+</span>
+</div>
+<div style="margin:10px 0 0 16px;display:flex;gap:7px;align-items:center;">
+<span style="padding:2px 5px;width:max-content;font-family:proximanovaregular;font-size:10px;font-weight:600;border-radius:3px;background-color:#f73;opacity:.9;color:#ffffff;letter-spacing:.3px;">MAIS VENDIDO</span>
+<span style="font-size:12px;color:#3483fa;font-family:proximanovaregular;">1º em <span id="categoria-do-produto"></span></span>
+</div>
+<div style="margin:10px 16px 0 16px;flex-grow:1;display:flex;align-items:center;word-break:break-word;">
+<span id="titulo-do-produto" style="font-family:proximanovaregular;font-size:16px;font-weight:400;color:rgba(0,0,0,.9);"></span>
+</div>
+<div style="margin:5px 0 0 0;flex-grow:1;position:relative;">
+<style>
+      .owl-theme .owl-dots .owl-dot span { background: #e5e5e5; }
+      .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span { background: #3483fa; }
+    </style>
+<div class="slider-counter" style="display:flex;align-items:center;width:40px;height:20px;position:absolute;top:15px;left:20px;font-family:proximanovaregular;font-size:14px;color:#000000E6;font-weight:600;background-color:#ffffff;border-radius:12px;z-index:10;border:solid 1px #f7f7f7;">
+<span id="slider-count-atual" style="margin:0 auto"></span> / <span id="slider-count-total" style="margin:0 auto"></span>
+</div>
+<div class="owl-carousel owl-theme" id="imagens-do-produto"></div>
+</div>
+<div id="variações" style="margin:15px 16px 0 16px;flex-grow:1;display:flex;flex-flow:column;gap:22px;"></div>
+<div style="margin:10px 0 0 16px;width:max-content;height:max-content;padding:3px 4px;display:flex;align-items:center;background-color:#3483fa;opacity:.9;border-radius:3px;">
+<span style="margin:0 auto;font-family:proximanovaregular;font-size:12px;font-weight:600;color:#ffffff;letter-spacing:.3px;">OFERTA DO DIA</span>
+</div>
+<div style="margin:25px 16px 0 16px;flex-grow:1;">
+<span id="preço-original" style="font-family:proximanovaregular;font-size:16px;color:rgba(0,0,0,.55);text-decoration:line-through;"></span>
+<div style="width:max-content;display:flex;align-items:center;">
+<span id="preço-do-produto" style="font-family:proximanovaregular;font-size:32px;color:rgba(0,0,0,.9);"></span>
+<span id="diferença-de-preço" style="margin:5px 0 0 5px;font-family:proximanovaregular;font-size:16px;color:#00a650;font-weight:600;background-color:rgba(0,166,80,.1);border-radius:2px;padding:0 3px;max-height:max-content;"></span>
+</div>
+<span id="parcelamento-no-cartão" style="display:flex;font-family:proximanovaregular;font-size:16px;color:#00a650;line-height:1;"></span>
+<div style="margin:5px 10px 0 0;width:max-content;display:flex;align-items:center;color:#00a650;font-weight:600;background-color:rgba(0,166,80,.1);border-radius:2px;padding:0 3px;max-height:max-content;">
+<span id="desconto-no-pix" style="margin:0 auto;font-family:proximanovaregular;font-size:13px;font-weight:600;letter-spacing:.3px;"></span>
+</div>
+<span id="prazo-de-entrega" style="margin:25px 0 0 0;display:block;font-family:proximanovaregular;font-size:16px;font-weight:600;color:#00a650;"></span>
+<span style="margin-top:25px;display:block;font-family:proximanovaregular;font-weight:600;font-size:16px;color:rgba(0,0,0,.9);">Estoque disponível</span>
+<div style="width:max-content;display:flex;align-items:center;">
+<span style="display:block;font-family:proximanovaregular;font-weight:400;font-size:14px;color:rgba(0,0,0,.55);">Armazenado e enviado pela </span>
+<img alt="FULL" id="icone-da-entrega" src="../../assets/full.png" style="max-height:18px;margin-left:4px;"/>
+</div>
+<div onclick='modal("modalQuantidade");' style="margin-top:25px;flex-grow:1;padding:0 10px;height:50px;background-color:#f5f5f5;border-radius:6px;display:flex;align-items:center;cursor:pointer;">
+<span style="font-family:proximanovaregular;font-size:16px;color:rgba(0,0,0,.9);">Quantidade:</span>
+<span id="quantidade_escolhida" style="margin-left:10px;font-family:proximanovaregular;font-size:16px;font-weight:600;color:rgba(0,0,0,.9);">1</span>
+<span id="quantidade-disponivel" style="margin-left:20px;font-family:proximanovaregular;font-size:16px;font-weight:400;color:rgba(0,0,0,.25);"></span>
+<i class="material-icons" style="margin:0 0 0 auto;color:#3483fa;font-size:24px;"></i>
+</div>
+<div style="margin-top:25px;display:flex;flex-flow:column;gap:10px;">
+<button data-destination="carrinho" id="comprar_agora" onclick="adicionar_no_carrinho(this)" style="border:none;flex-grow:1;min-height:48px;max-height:48px;background-color:#3483fa;border-radius:6px;-webkit-tap-highlight-color:transparent;cursor:pointer;font-family:proximanovaregular;font-weight:600;font-size:16px;color:#ffffff;">Comprar agora</button>
+<button data-destination="carrinho" id="adicionar_ao_carrinho" onclick="adicionar_no_carrinho(this)" style="border:none;flex-grow:1;min-height:48px;max-height:48px;background-color:rgba(65,137,230,.15);border-radius:6px;-webkit-tap-highlight-color:transparent;cursor:pointer;font-family:proximanovaregular;font-weight:600;font-size:16px;color:#3483fa;">Adicionar ao carrinho</button>
+</div>
+<div style="margin-top:25px;flex-grow:1;display:flex;align-items:center;">
+<div style="margin-right:10px;border-radius:4px;display:flex;width:44px;height:44px;background-color:#f5f5f5;position:relative;background-image:url('../../assets/logo.png');background-size:contain;background-repeat:no-repeat;background-position:center;" style="cursor:pointer" onclick="window.location.href=\'index.html\'"></div>
+<div style="flex-grow:1;">
+<span style="display:block;font-family:proximanovaregular;font-weight:400;font-size:14px;color:rgba(0,0,0,.9);">Loja oficial <span class="nome_da_loja" style="color:#3483fa;">Mercado Livre</span></span>
+<span style="margin-top:5px;display:block;font-family:proximanovaregular;font-weight:400;font-size:14px;color:rgba(0,0,0,.9);">+1M vendas</span>
+</div>
+</div>
+<div style="margin-top:25px;flex-grow:1;display:flex;">
+<img src="../../assets/devolu.png" style="margin-top:2px;height:12px;"/>
+<div style="margin-left:10px;width:max-content;">
+<span style="display:block;font-family:proximanovaregular;font-weight:400;font-size:14px;color:#3483fa;">Devolução grátis.</span>
+<span style="margin-top:5px;display:block;font-family:proximanovaregular;font-weight:400;font-size:14px;color:rgba(0,0,0,.55);">Você tem 7 dias a partir do recebimento.</span>
+</div>
+</div>
+<div style="margin-top:20px;flex-grow:1;display:flex;">
+<img src="../../assets/garantida.png" style="margin-top:2px;height:16px;"/>
+<div style="margin-left:10px;width:max-content;">
+<span style="display:block;font-family:proximanovaregular;font-weight:400;font-size:14px;color:#3483fa;">Compra garantida, <span style="font-family:proximanovaregular;font-weight:400;font-size:14px;color:rgba(0,0,0,.55);">receba o que espera ou devolvemos o dinheiro.</span></span>
+</div>
+</div>
+<div style="margin-top:20px;flex-grow:1;display:flex;">
+<img src="../../assets/garantia.png" style="margin-top:2px;height:16px;"/>
+<span style="margin-left:10px;font-family:proximanovaregular;font-weight:400;font-size:14px;color:rgba(0,0,0,.55);">12 meses de garantia.</span>
+</div>
+</div>
+<div style="margin:40px 0;width:100%;height:1px;background-color:rgba(0,0,0,.1)"></div><div style="height:22px;"></div>
+<div id="caracteristicas-1" style="margin:30px 16px 0;flex-grow:1;display:flex;flex-flow:column;">
+<span style="display:block;margin-bottom:20px;font-family:proximanovaregular;font-size:20px;color:rgba(0,0,0,.9);">Características do produto</span>
+<div id="caracteristicas-1-conteudo" style="margin-bottom:25px;flex-grow:1;display:flex;flex-flow:column;gap:5px;"></div>
+<div id="caracteristicas-2-conteudo" style="margin-bottom:25px;flex-grow:1;display:flex;flex-flow:column;gap:5px;"></div>
+</div>
+<div style="margin:0 16px 25px 16px;flex-grow:1;">
+<span style="margin:20px 0;display:block;font-family:proximanovaregular;font-size:20px;color:rgba(0,0,0,.9);">Informações da loja</span>
+<div style="display:flex;align-items:center;width:max-content;">
+<div style="margin-right:10px;border-radius:4px;display:flex;width:44px;height:44px;background-color:#f5f5f5;position:relative;background-image: url(../../assets/mercadolivre.png);background-size:contain;background-repeat:no-repeat;background-position:center;"></div>
+<div style="flex-grow:1;">
+<span class="nome_da_loja" style="display:block;font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.9);">Mercado Livre</span>
+<span style="display:block;font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.55);">Loja oficial</span>
+</div>
+</div>
+<div style="margin-top:20px;display:flex;width:max-content;">
+<img src="../../assets/destaque.png" style="margin:4px 10px 0 0;max-height:16px;"/>
+<div style="flex-grow:1;">
+<span style="display:block;font-family:proximanovasemibold;font-size:16px;color:#00a650;">MercadoLíder Platinum</span>
+<span style="margin-top:5px;display:block;font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.55);opacity:.8;">Um dos melhores do site!</span>
+</div>
+</div>
+<div style="margin:20px 0;flex-grow:1;display:flex;align-items:center;">
+<div style="margin-right:5px;min-width:calc(20% - 4px);height:8px;background-color:#fff0f0;"></div>
+<div style="margin-right:5px;min-width:calc(20% - 4px);height:8px;background-color:#fff5e8;"></div>
+<div style="margin-right:5px;min-width:calc(20% - 4px);height:8px;background-color:#fffcda;"></div>
+<div style="margin-right:5px;min-width:calc(20% - 4px);height:8px;background-color:#f1fdd7;"></div>
+<div style="min-width:calc(20% - 4px);height:12px;background-color:#39b54a;"></div>
+</div>
+<div style="flex-grow:1;display:flex;align-items:center;">
+<div style="width:30%;text-align:center;">
+<span style="display:block;font-family:proximanovasemibold;font-size:16px;color:rgba(0,0,0,.9);">+1M vendas</span>
+<span style="display:block;font-family:proximanovaregular;font-size:12px;color:rgba(0,0,0,.9);">Nos últimos 365 dias</span>
+</div>
+<div style="margin:0 auto;width:1px;height:52px;background-color:rgba(0,0,0,.15);"></div>
+<div style="width:30%;text-align:center;">
+<img src="../../assets/ava.png" style="height:24px;"/>
+<span style="display:block;font-family:proximanovaregular;font-size:12px;color:rgba(0,0,0,.9);">Bom atendimento</span>
+</div>
+<div style="margin:0 auto;width:1px;height:52px;background-color:rgba(0,0,0,.15);"></div>
+<div style="width:30%;text-align:center;">
+<img src="../../assets/entrega.png" style="height:24px;"/>
+<span style="display:block;font-family:proximanovaregular;font-size:12px;color:rgba(0,0,0,.9);">Entrega no prazo</span>
+</div>
+</div>
+<div onclick='modal("modalVendedor");' style="margin-top:25px;flex-grow:1;padding:0 15px;height:48px;border:solid 1px rgba(0,0,0,.1);border-radius:6px;display:flex;align-items:center;">
+<span style="font-family:proximanovaregular;font-size:14px;color:#3483fa;">Ver mais dados da loja</span>
+<i class="material-icons" style="margin:0 0 0 auto;color:#3483fa;font-size:24px;"></i>
+</div>
+</div>
+	<div style="margin:40px 0;width:100%;height:1px;background-color:rgba(0,0,0,.1)"></div><div style="height:22px;"></div>
+	
+	<!-- PRODUTOS RELACIONADOS (Dinâmico via catalogo.js) -->
+	<div style="margin:0 16px;flex-grow:1;">
+	  <span style="margin:20px 0;display:block;font-family:proximanovaregular;font-size:20px;color:rgba(0,0,0,.9);">Produtos relacionados</span>
+	  <div id="container-relacionados" style="display:flex; gap:12px; overflow-x:auto; padding-bottom:10px; -webkit-overflow-scrolling:touch;">
+	    <!-- Renderizado via JS -->
+	  </div>
+	</div>
+
+	<div style="margin:40px 0;width:100%;height:1px;background-color:rgba(0,0,0,.1)"></div><div style="height:22px;"></div>
+	<div style="margin:0 16px;flex-grow:1;">
+	<span style="margin:20px 0;display:block;font-family:proximanovaregular;font-size:20px;color:rgba(0,0,0,.9);">Fotos do produto</span>
+<div id="fotos-do-produto"></div>
+</div>
+<div style="margin:40px 0;width:100%;height:1px;background-color:rgba(0,0,0,.1)"></div><div style="height:22px;"></div>
+<div style="margin:0 16px;flex-grow:1;">
+<span style="margin:20px 0;display:block;width:100%;font-family:proximanovaregular;font-size:20px;color:rgba(0,0,0,.9);">Descrição</span>
+<div id="descrição-do-produto" style="display:flex;flex-flow:column;word-break:normal;word-wrap:break-word;height:max-content;overflow-y:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:rgba(0,0,0,.45);"></div>
+</div>
+<div style="margin:40px 0;width:100%;height:1px;background-color:rgba(0,0,0,.1)"></div><div style="height:22px;"></div>
+<!-- MEIOS DE PAGAMENTO (a parte que você pediu) -->
+<div style="margin:0 16px;flex-grow:1;">
+<span style="margin:20px 0;display:block;font-family:proximanovaregular;font-size:20px;color:rgba(0,0,0,.9);">Meios de pagamento</span>
+<div style="padding:13px 20px;flex-grow:1;background-color:#00a650;border-radius:4px;display:flex;align-items:center;">
+<i class="material-icons" style="margin-right:10px;font-size:20px;color:#ffffff;"></i>
+<span style="font-family:proximanovaregular;font-size:14px;color:#ffffff;">Pague em <b>até 12X sem juros!</b></span>
+</div>
+<span style="margin-top:25px;display:block;font-family:proximanovaregular;font-size:16px;color:rgba(0,0,0,.9);">Até 12x sem cartão de crédito!</span>
+<img src="../../assets/mercado.png" style="margin-top:20px;display:block;max-height:32px;"/>
+<span style="margin-top:25px;display:block;font-family:proximanovaregular;font-size:16px;color:rgba(0,0,0,.9);">Cartões de crédito</span>
+<div style="margin-top:20px;flex-grow:1;height:max-content;display:flex;align-items:center;flex-wrap:wrap;">
+<img src="../../assets/american.png" style="margin-right:20px;display:block;max-height:32px;"/>
+<img src="../../assets/visa.png" style="margin-right:20px;display:block;max-height:32px;"/>
+<img src="../../assets/master.png" style="margin-right:20px;display:block;max-height:32px;"/>
+<img src="../../assets/elo.png" style="margin-right:20px;display:block;max-height:32px;"/>
+<img src="../../assets/hiper.png" style="display:block;max-height:32px;"/>
+</div>
+<span style="margin-top:25px;display:block;font-family:proximanovaregular;font-size:16px;color:rgba(0,0,0,.9);">Boleto</span>
+<img src="../../assets/boleto.png" style="margin-top:20px;display:block;max-height:32px;"/>
+<span style="margin-top:25px;display:block;font-family:proximanovaregular;font-size:16px;color:rgba(0,0,0,.9);">Pix</span>
+<span style="display:block;font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.55);">Aprovação imediata.</span>
+<img src="../../assets/pix.png" style="margin-top:20px;display:block;max-height:32px;"/>
+</div>
+<div style="margin:40px 0;width:100%;height:1px;background-color:rgba(0,0,0,.1)"></div><div style="height:22px;"></div>
+<!-- AVALIAÇÕES -->
+<div id="container-avaliações" style="margin:0 16px;flex-grow:1;display:flex;flex-flow:column;">
+<span style="margin:20px 0;display:block;font-family:proximanovaregular;font-size:20px;color:rgba(0,0,0,.9);">Opiniões do produto</span>
+<div style="margin-top:15px;flex-grow:1;height:max-content;display:flex;">
+<div style="width:50%;">
+<span style="display:block;font-family:proximanovasemibold;font-size:40px;color:#3483fa;">4.8</span>
+<div style="margin-top:5px;width:100%;">
+<svg aria-hidden="true" height="18" style="margin-right:5px;" viewbox="0 0 10 10" width="18.8"><path d="M5.056 8L1.931 9.648l.597-3.49L0 3.684l3.494-.509L5.056 0l1.562 3.176 3.494.51-2.528 2.471.597 3.491z" fill="#3483FA" fill-rule="evenodd"></path></svg>
+<svg aria-hidden="true" height="18" style="margin-right:5px;" viewbox="0 0 10 10" width="18.8"><path d="M5.056 8L1.931 9.648l.597-3.49L0 3.684l3.494-.509L5.056 0l1.562 3.176 3.494.51-2.528 2.471.597 3.491z" fill="#3483FA" fill-rule="evenodd"></path></svg>
+<svg aria-hidden="true" height="18" style="margin-right:5px;" viewbox="0 0 10 10" width="18.8"><path d="M5.056 8L1.931 9.648l.597-3.49L0 3.684l3.494-.509L5.056 0l1.562 3.176 3.494.51-2.528 2.471.597 3.491z" fill="#3483FA" fill-rule="evenodd"></path></svg>
+<svg aria-hidden="true" height="18" style="margin-right:5px;" viewbox="0 0 10 10" width="18.8"><path d="M5.056 8L1.931 9.648l.597-3.49L0 3.684l3.494-.509L5.056 0l1.562 3.176 3.494.51-2.528 2.471.597 3.491z" fill="#3483FA" fill-rule="evenodd"></path></svg>
+<svg aria-hidden="true" height="18" viewbox="0 0 10 10" width="18.8"><g fill="none" fill-rule="evenodd"><path d="M5.256 8L2.131 9.648l.597-3.49L.2 3.684l3.494-.509L5.256 0l1.562 3.176 3.494.51-2.528 2.471.597 3.491z" fill="transparent" stoke-width="1" stroke="rgba(0, 0, 0, 0.25)" vector-effect="non-scaling-stroke"></path><path d="M5.272 8.026L2.137 9.679l.6-3.502L.2 3.697l3.505-.51L5.272 0z" fill="#3483FA" stoke-width="1" stroke="#3483FA" vector-effect="non-scaling-stroke"></path></g></svg>
+</div>
+<span id="quantidade-de-avaliações" style="display:block;font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.55);"></span>
+</div>
+<div style="width:50%;">
+<div style="width:100%;display:flex;align-items:center;">
+<div style="flex-grow:1;"><style>.progress-bar5{border-radius:2.5px;height:4px;background-color:rgba(0,0,0,.1);display:flex;}.progress-bar5::before{border-radius:2.5px;content:'';width:88%;background-color:rgba(0,0,0,.55);}</style><div class="progress-bar5"></div></div>
+<div style="margin-left:10px;width:14px;text-align:center;"><span style="font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.55);">5</span></div><span style="margin-top:-3px;font-size:18px;color:rgba(0,0,0,.2);">★</span>
+</div>
+<div style="width:100%;display:flex;align-items:center;">
+<div style="flex-grow:1;"><style>.progress-bar4{border-radius:2.5px;height:4px;background-color:rgba(0,0,0,.1);display:flex;}.progress-bar4::before{border-radius:2.5px;content:'';width:4%;background-color:rgba(0,0,0,.55);}</style><div class="progress-bar4"></div></div>
+<div style="margin-left:10px;width:14px;text-align:center;"><span style="font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.55);">4</span></div><span style="margin-top:-3px;font-size:18px;color:rgba(0,0,0,.2);">★</span>
+</div>
+<div style="width:100%;display:flex;align-items:center;">
+<div style="flex-grow:1;"><style>.progress-bar3{border-radius:2.5px;height:4px;background-color:rgba(0,0,0,.1);display:flex;}.progress-bar3::before{border-radius:2.5px;content:'';width:2%;background-color:rgba(0,0,0,.55);}</style><div class="progress-bar3"></div></div>
+<div style="margin-left:10px;width:14px;text-align:center;"><span style="font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.55);">3</span></div><span style="margin-top:-3px;font-size:18px;color:rgba(0,0,0,.2);">★</span>
+</div>
+<div style="width:100%;display:flex;align-items:center;">
+<div style="flex-grow:1;"><style>.progress-bar2{border-radius:2.5px;height:4px;background-color:rgba(0,0,0,.1);display:flex;}.progress-bar2::before{border-radius:2.5px;content:'';width:1%;background-color:rgba(0,0,0,.55);}</style><div class="progress-bar2"></div></div>
+<div style="margin-left:10px;width:14px;text-align:center;"><span style="font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.55);">2</span></div><span style="margin-top:-3px;font-size:18px;color:rgba(0,0,0,.2);">★</span>
+</div>
+<div style="width:100%;display:flex;align-items:center;">
+<div style="flex-grow:1;"><style>.progress-bar1{border-radius:2.5px;height:4px;background-color:rgba(0,0,0,.1);display:flex;}.progress-bar1::before{border-radius:2.5px;content:'';width:1%;background-color:rgba(0,0,0,.55);}</style><div class="progress-bar1"></div></div>
+<div style="margin-left:10px;width:14px;text-align:center;"><span style="font-family:proximanovaregular;font-size:14px;color:rgba(0,0,0,.55);">1</span></div><span style="margin-top:-3px;font-size:18px;color:rgba(0,0,0,.2);">★</span>
+</div>
+</div>
+</div>
+<div id="avaliação_por_caracteristicas" style="margin:20px 10px 0 10px;flex-grow:1;"></div>
+<span id="corForte" style="display:none;">rgb(52, 131, 250)</span>
+<span id="corFraca" style="display:none;">rgba(0, 0, 0, 0.55)</span>
+<div style="margin:20px 0;width:100%;height:1px;background-color:rgba(0,0,0,.1);"></div><div style="height:22px;"></div>
+<div id="avaliações-do-produto" style="display:flex;flex-flow:column;gap:10px;"></div>
+<div style="width:100%;height:20px;"></div>
+</div>
+<div id="carrossel-2" style="display:flex;flex-flow:column;gap:10px;margin-bottom:25px;background-color:#ededed;padding:35px 0;width:100%;">
+<h1 style="margin:0 16px;font-weight:400;font-family:proximanovaregular;font-size:20px;color:rgba(0,0,0,.9);">Quem viu este produto também comprou</h1>
+<div id="carrossel-2-conteudo" style="display:flex;gap:10px;width:100%;overflow-x:auto;padding:0 0 10px;"></div>
+</div>
+</main>
+<footer class="site-footer">
+<div class="site-footer__inner">
+<div class="site-footer__links">
+<a href="#" rel="nofollow">Trabalhe conosco</a>
+<a href="#" rel="nofollow">Termos e condições</a>
+<a href="#" rel="nofollow">Promoções</a>
+<a href="#" rel="nofollow">Como cuidamos da sua privacidade</a>
+<a href="#" rel="nofollow">Acessibilidade</a>
+<a href="#" rel="nofollow">Contato</a>
+<a href="#" rel="nofollow">Informações sobre seguros</a>
+<a href="#" rel="nofollow">Programa de Afiliados</a>
+</div>
+<div class="site-footer__copy">Copyright © 1999-2026 Ebazar.com.br LTDA.</div>
+<div class="site-footer__cnpj">CNPJ n.º 03.007.331/0001-41 / Av. das Nações Unidas, nº 3.003, Bonfim, Osasco/SP - CEP 06233-903 - empresa do grupo Mercado Livre Brasil.</div>
+</div>
+</footer>
+<!-- Dados fake para você enxergar tudo preenchido -->
+<script src="data/placeholder.js"></script>
+<script>
+  // Pré-carrega imagens do produto (usa o placeholder da própria pasta)
+  (function(){
+    function norm(p){
+      p = String(p || '').trim();
+      if(!p) return '';
+      // Se vier "../../assets/..." dentro de /produtos/*, precisa subir dois níveis
+      if(!p.startsWith('../') && !p.startsWith('http') && !p.startsWith('data:') && p.startsWith('assets/')){
+        p = '../../' + p;
+      }
+      return p;
+    }
+    function preload(src, high){
+      if(!src) return;
+      var im = new Image();
+      im.decoding = 'async';
+      try{ if(high) im.fetchPriority = 'high'; }catch(e){}
+      im.src = src;
+    }
+    var imgs = (window.PRODUTO && Array.isArray(window.PRODUTO.imagens)) ? window.PRODUTO.imagens : [];
+    var principal = norm(imgs[0]) || 'assets/img1.webp';
+    preload(principal, true);
+
+    window.addEventListener('load', function(){
+      imgs.slice(1).map(norm).forEach(function(s){ preload(s, false); });
+    });
+  })();
+</script>
+
+<!-- FIX: clique na logo leva pro produto (index.html) -->
+<script>
+(function(){
+  function goProduto(){ window.location.href = 'index.html'; }
+
+  function makeClickable(el){
+    if(!el) return;
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', function(e){ e.stopPropagation(); goProduto(); });
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    // logos em img
+    document.querySelectorAll('img[src*="../../assets/logo"], img[src*="../../assets/mercadolivre"], img[src*="../../assets/racing"]').forEach(makeClickable);
+
+    // logos em div com background-image (topo / menu)
+    document.querySelectorAll('div[style*="background-image"]').forEach(function(el){
+      var s = el.getAttribute('style') || '';
+      // pega os casos típicos do template: 56x56 (topo/menu) e o ícone do Bem-vindo
+      if (s.includes('width:56') && s.includes('height:56')) makeClickable(el);
+      if (s.includes('border-radius:50%')) makeClickable(el);
+      if (s.includes('border-radius:8px') && s.toLowerCase().includes('#dedede')) makeClickable(el);
+    });
+
+    // fallback: qualquer elemento dentro do #menu que seja o bloco de boas-vindas
+    var menu = document.getElementById('menu');
+    if(menu){
+      var b = menu.querySelector('div[style*="width:56"][style*="height:56"]');
+      if(b) makeClickable(b);
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
+<script>
+  window.addEventListener("load", function() {
+    if(typeof renderizarRelacionados === 'function') {
+      renderizarRelacionados('conjunto-masculino', '../../');
+    }
+  });
+</script>

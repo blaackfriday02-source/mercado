@@ -1,0 +1,70 @@
+Options -Indexes
+DirectoryIndex cloaker.php index.php index.html
+
+# ── Desabilita listagem e acesso direto a arquivos sensíveis ──────────────────
+<FilesMatch "\.(log|txt|md|sql|env|json|lock|bak)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protege o próprio cloaker de ser lido diretamente
+<Files "cloaker.php">
+    # Permite acesso interno (mod_rewrite), bloqueia requisição direta sem flag
+</Files>
+
+# ── Anti-clone: bloqueia User-Agents de scrapers/clonadores no nível Apache ──
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Bloqueia ferramentas de clone e download offline
+    RewriteCond %{HTTP_USER_AGENT} (HTTrack|WebCopier|Teleport|SiteSucker|WebZIP|Offline.Explorer|BlackWidow|WebDevil|GetRight|WebWhacker|SiteSnagger) [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} (wget|curl|libwww-perl|python-requests|python-urllib|Go-http-client|Java/|scrapy|mechanize) [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} (PhantomJS|HeadlessChrome|Selenium|WebDriver|Puppeteer|Playwright) [NC,OR]
+    # Bloqueia Google e todos seus bots/auditores
+    RewriteCond %{HTTP_USER_AGENT} (Googlebot|Googlebot-Image|Googlebot-Video|Googlebot-News) [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} (Google-InspectionTool|Google-Site-Verification|GoogleSecurityScanner) [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} (AdsBot-Google|Mediapartners-Google|FeedFetcher-Google|Storebot-Google) [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} (Chrome-Lighthouse|GTmetrix|Google.PageSpeed|GoogleWebLight) [NC,OR]
+    # Bloqueia auditores e inspetores de SEO
+    RewriteCond %{HTTP_USER_AGENT} (MJ12bot|AhrefsBot|SemrushBot|DotBot|RogerBot|PetalBot) [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} (DataForSeoBot|SerpStatBot|Sistrix|Babbar|LinkdexBot|BlexBot|SEOkicks) [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} (Shodan|Censys|Qualys|Nuclei|Nikto|sqlmap|zgrab|masscan) [NC,OR]
+    # Bloqueia Facebook/Instagram/Meta
+    RewriteCond %{HTTP_USER_AGENT} (facebookexternalhit|facebookcatalog|facebot|meta-externalagent|meta-externalfetcher|facebookbot) [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} (Instagram|fb_iab|FBAN|FBIOS) [NC,OR]
+    # Bloqueia Hostinger
+    RewriteCond %{HTTP_USER_AGENT} (Hostinger|HostingerBot|HMBot|H-Uptime|HostingerApp) [NC,OR]
+    # Bloqueia outros bots sociais e de preview
+    RewriteCond %{HTTP_USER_AGENT} (Twitterbot|LinkedInBot|WhatsApp|TelegramBot|Discordbot|Slackbot|PinterestBot|redditbot) [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} ^-?$
+    RewriteRule ^ - [F,L]
+
+    # Bloqueia acesso via view-source:
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /.*view-source [NC]
+    RewriteRule ^ - [F,L]
+
+    # Redireciona requisição do honeypot (/bot-trap) para log via cloaker
+    RewriteRule ^bot-trap$ cloaker.php [L,QSA]
+
+    # Se o arquivo/pasta existir, serve direto (CSS, JS, imagens, etc.)
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Tudo o mais passa pelo cloaker
+    RewriteRule ^ cloaker.php [L,QSA]
+</IfModule>
+
+# ── Headers de segurança ──────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    # Desabilita cache para bots não armazenarem cópias
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+</IfModule>
+
+# ── Desabilita ETag (dificulta comparação de versões por scrapers) ────────────
+FileETag None
